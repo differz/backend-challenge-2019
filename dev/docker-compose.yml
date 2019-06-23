@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+  PostgreSQL:
+    restart: always
+    image: sameersbn/postgresql:10-1
+    ports:
+      - "5432:5432"
+    environment:
+      - DB_USER=bc_username
+      - DB_PASS=bc_password
+      - DB_NAME=bc2019
+    volumes:
+      - "./data/postgresql:/var/lib/postgresql"

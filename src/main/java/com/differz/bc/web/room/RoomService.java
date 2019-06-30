@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -88,7 +88,7 @@ public class RoomService {
                 .orElseThrow(() -> new NoSuchElementException("can't get room id " + roomId));
     }
 
-    private LocalDateTime getCreatedAt() {
-        return LocalDateTime.now().truncatedTo(SECONDS);
+    private Instant getCreatedAt() {
+        return Instant.now().truncatedTo(SECONDS);
     }
 }

@@ -3,7 +3,7 @@ package com.differz.bc.web.room;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 @Data
@@ -15,5 +15,5 @@ public class RoomDto {
     @JsonProperty("creator_id")
     private UUID creatorId;
     @JsonProperty("created_at")
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 }

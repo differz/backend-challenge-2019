@@ -100,7 +100,7 @@ class UserIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/users")
                 .accept(MediaType.APPLICATION_JSON)
         )
-                .andExpect(MockMvcResultMatchers.status().isForbidden());
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
     }
 
     @Test
@@ -108,7 +108,7 @@ class UserIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/users/b4173398-9171-44b4-a6d2-d7c7c5ef1697")
                 .accept(MediaType.APPLICATION_JSON)
         )
-                .andExpect(MockMvcResultMatchers.status().isForbidden());
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
     }
 
     private ResultActions getUsers() throws Exception {

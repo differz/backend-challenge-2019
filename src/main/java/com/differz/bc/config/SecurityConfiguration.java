@@ -36,6 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin().disable();
         http.authorizeRequests()
                 .antMatchers("/users/**").authenticated()
-                .antMatchers("/rooms/**").authenticated();
+                .antMatchers("/rooms/**").authenticated()
+                .antMatchers("/message").authenticated();
     }
 }

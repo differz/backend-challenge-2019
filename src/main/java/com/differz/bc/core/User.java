@@ -15,9 +15,8 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @GeneratedValue
     @Column(name = "ID")
-    private UUID id;
+    private UUID id = UUID.randomUUID();
 
     @Column(name = "USERNAME")
     private String username;

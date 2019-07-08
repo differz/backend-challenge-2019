@@ -83,6 +83,11 @@ public class RoomService {
         return users.contains(user);
     }
 
+    public boolean isUserInRoomOrBot(UUID userId, UUID roomId) {
+        return userService.findBotUser(userId).isPresent()
+                || isUserInRoom(userId, roomId);
+    }
+
     public Room getRoomByIdOrThrow(UUID roomId) {
         return roomRepository.findById(roomId)
                 .orElseThrow(() -> new NoSuchElementException("can't get room id " + roomId));

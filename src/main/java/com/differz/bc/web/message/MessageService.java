@@ -24,7 +24,7 @@ public class MessageService {
     public Message saveMessage(MessageInputDto messageInputDto) {
         UUID roomId = messageInputDto.getRoomId();
         UUID userId = messageInputDto.getUserId();
-        if (!roomService.isUserInRoom(userId, roomId)) {
+        if (!roomService.isUserInRoomOrBot(userId, roomId)) {
             throw new BadRequestException("no user " + userId + " in the room " + roomId);
         }
         Message message = new Message();

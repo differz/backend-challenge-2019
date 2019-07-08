@@ -47,12 +47,30 @@ public class UserService {
         return user;
     }
 
+    public Optional<User> findBotUser(String username) {
+        return userRepository.findByUsernameAndBotTrue(username);
+    }
+
+    public Optional<User> findBotUser(UUID uuid) {
+        return userRepository.findByIdAndBotTrue(uuid);
+    }
+
+    public User registerBotUser(String username) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(UUID.randomUUID().toString());
+        user.setCredentials("");
+        user.setBot(true);
+        userRepository.save(user);
+        return user;
+    }
+
     public String getEncodedCredentials(String username, String password) {
         String credentials = username + ":" + password;
         return Base64.getEncoder().encodeToString(credentials.getBytes());
     }
 
-    public User getUserByIdOrThrow(UUID userId){
+    public User getUserByIdOrThrow(UUID userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new NoSuchElementException("can't get user id " + userId));
     }

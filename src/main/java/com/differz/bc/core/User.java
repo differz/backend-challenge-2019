@@ -33,4 +33,7 @@ public class User {
     @Column(name = "DELETED", nullable = false)
     private Boolean deleted = false;
 
+    @Column(name = "BOT", nullable = false)
+    private Boolean bot = false;
+
 }

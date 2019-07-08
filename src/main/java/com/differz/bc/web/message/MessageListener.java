@@ -13,6 +13,7 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Slf4j
@@ -26,6 +27,7 @@ public class MessageListener {
 
     @Async
     @EventListener
+    @Transactional
     public void messageSentEvent(MessageSentEvent event) throws JsonProcessingException {
         UUID userId = event.getUserId();
         UUID roomId = event.getRoomId();
@@ -37,8 +39,10 @@ public class MessageListener {
         Room room = roomService.getRoomByIdOrThrow(roomId);
         for (User user : room.getUsers()) {
             String username = user.getUsername();
-            messagingTemplate.convertAndSendToUser(username, "/queue/reply", jsonMessage);
-            log.debug("message sent to user " + username);
+            // remove auth on websocket
+            // messagingTemplate.convertAndSendToUser(username, "/user/queue/reply", jsonMessage);
+            messagingTemplate.convertAndSend("/queue/reply", jsonMessage);
+            log.info("message sent to user " + username + " " + jsonMessage);
         }
     }
 }

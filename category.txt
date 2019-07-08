@@ -1,0 +1,4 @@
+default     omg . omg
+greeting    hi . hello . how are you . hey . good morning . good evening . good afternoon
+continue    good really nice
+complete    thanks . thank you . bye

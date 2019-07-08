@@ -58,6 +58,9 @@ dependencies {
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     implementation "org.zalando:problem-spring-web:${zalando_problem_version}"
 
+    implementation "org.apache.opennlp:opennlp-tools:1.9.1"
+
+
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude group: "junit"
     }

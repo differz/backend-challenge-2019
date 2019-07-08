@@ -20,6 +20,7 @@ public class UserService {
     public List<UserDto> findAllUsers() {
         return userRepository.findAll()
                 .stream()
+                .filter(user -> !user.getBot())
                 .map(userMapper::mapToUserDto)
                 .collect(Collectors.toList());
     }

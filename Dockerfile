@@ -5,8 +5,10 @@ RUN gradle build --info
 
 FROM openjdk:11-jre
 EXPOSE 443
-COPY --from=builder /home/gradle/src/build/distributions/backend-challenge-2019-1.0.tar /app/
+COPY --from=builder /home/gradle/src/build/distributions/backend-challenge-2019-boot-1.0.tar /app/
 WORKDIR /app
-RUN tar -xvf backend-challenge-2019-1.0.tar
-WORKDIR /app/backend-challenge-2019-1.0
+RUN tar -xvf backend-challenge-2019-boot-1.0.tar
+COPY --from=builder /home/gradle/src/category.txt /app/backend-challenge-2019-boot-1.0/bin
+COPY --from=builder /home/gradle/src/keystore.p12 /app/backend-challenge-2019-boot-1.0/bin
+WORKDIR /app/backend-challenge-2019-boot-1.0
 CMD bin/backend-challenge-2019

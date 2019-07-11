@@ -11,7 +11,6 @@ import opennlp.tools.postag.POSTaggerME;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
@@ -44,8 +43,12 @@ public class OpenNlpBotAnswerer implements ChatbotAnswerer {
         return answer;
     }
 
+    private InputStream getModelInputStream(String resource) {
+        return getClass().getClassLoader().getResourceAsStream(resource);
+    }
+
     private String[] tokenize(String sentence) throws IOException {
-        try (InputStream modelIn = new FileInputStream("en-token.bin")) {
+        try (InputStream modelIn = getModelInputStream("models/en-token.bin")) {
             TokenizerME tokenizerME = new TokenizerME(new TokenizerModel(modelIn));
             String[] tokens = tokenizerME.tokenize(sentence);
             log.info("Tokenizer : " + String.join(" | ", tokens));
@@ -54,7 +57,7 @@ public class OpenNlpBotAnswerer implements ChatbotAnswerer {
     }
 
     private String[] detectPOSTags(String[] tokens) throws IOException {
-        try (InputStream modelIn = new FileInputStream("en-pos-maxent.bin")) {
+        try (InputStream modelIn = getModelInputStream("models/en-pos-maxent.bin")) {
             POSTaggerME posTaggerME = new POSTaggerME(new POSModel(modelIn));
             String[] posTokens = posTaggerME.tag(tokens);
             log.info("POS Tags : " + String.join(" | ", posTokens));
@@ -63,7 +66,7 @@ public class OpenNlpBotAnswerer implements ChatbotAnswerer {
     }
 
     private String[] lemmatize(String[] tokens, String[] posTags) throws IOException {
-        try (InputStream modelIn = new FileInputStream("en-lemmatizer.bin")) {
+        try (InputStream modelIn = getModelInputStream("models/en-lemmatizer.bin")) {
             LemmatizerME lemmatizerME = new LemmatizerME(new LemmatizerModel(modelIn));
             String[] lemmaTokens = lemmatizerME.lemmatize(tokens, posTags);
             log.info("Lemmatizer : " + String.join(" | ", lemmaTokens));

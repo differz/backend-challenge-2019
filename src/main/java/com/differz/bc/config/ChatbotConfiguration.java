@@ -42,7 +42,8 @@ public class ChatbotConfiguration {
 
     private DoccatModel categoryModel() {
         try {
-            InputStreamFactory inputStreamFactory = new MarkableFileInputStreamFactory(new File("category.txt"));
+            File file = new File("category.txt");
+            InputStreamFactory inputStreamFactory = new MarkableFileInputStreamFactory(file);
             ObjectStream<String> lineStream = new PlainTextByLineStream(inputStreamFactory, StandardCharsets.UTF_8);
             ObjectStream<DocumentSample> sampleStream = new DocumentSampleStream(lineStream);
             DoccatFactory factory = new DoccatFactory(new FeatureGenerator[]{new BagOfWordsFeatureGenerator()});

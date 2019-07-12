@@ -1,0 +1,23 @@
+version: '3.3'
+services:
+  app:
+    build: ../
+    image: backend-challenge-2019:latest
+    ports:
+      - "443:443"
+    container_name: bc_app_prod
+    environment:
+      - DB_HOST=postgres
+    links:
+      - postgres
+  postgres:
+    image: sameersbn/postgresql:10-1
+    ports:
+      - "5432:5432"
+    environment:
+      - DB_USER=bc_username
+      - DB_PASS=bc_password
+      - DB_NAME=bc2019
+    volumes:
+      - "./data/postgresql:/var/lib/postgresql"
+    container_name: bc_postgres_prod

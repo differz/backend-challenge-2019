@@ -2,3 +2,8 @@ default     omg . omg
 greeting    hi . hello . how are you . hey . good morning . good evening . good afternoon
 continue    good really nice
 complete    thanks . thank you . bye
+product-pizza   order pizza
+product-lunch   lunch
+order-show   show me order . list order . order please
+product-pizza-cancel   take out pizza . cancel pizza . remove pizza
+product-lunch-cancel   dotn't want lunch . cancel lunch . remove lunch

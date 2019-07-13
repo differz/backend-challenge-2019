@@ -4,6 +4,8 @@ import com.differz.bc.chatbot.Chatbot;
 import com.differz.bc.chatbot.ChatbotAnswerer;
 import com.differz.bc.chatbot.OpenNlpBotAnswerer;
 import com.differz.bc.core.User;
+import com.differz.bc.dao.ItemRepository;
+import com.differz.bc.dao.OrderRepository;
 import com.differz.bc.web.user.UserService;
 import lombok.RequiredArgsConstructor;
 import opennlp.tools.doccat.*;
@@ -36,8 +38,12 @@ public class ChatbotConfiguration {
     }
 
     @Bean
-    public ChatbotAnswerer chatbotAnswerer() {
-        return new OpenNlpBotAnswerer(categoryAnswers(), categoryModel());   // or new EchoBotAnswerer();
+    public ChatbotAnswerer chatbotAnswerer(OrderRepository orderRepository, ItemRepository itemRepository) {
+        return new OpenNlpBotAnswerer(
+                categoryAnswers(),
+                categoryModel(),
+                orderRepository,
+                itemRepository);
     }
 
     private DoccatModel categoryModel() {
@@ -61,6 +67,11 @@ public class ChatbotConfiguration {
         answers.put("greeting", "Hello! How can i help you?");
         answers.put("continue", "Want something else?");
         answers.put("complete", "Nice to meet you.");
+        answers.put("product-pizza", "Take your favorite PIZZA!");
+        answers.put("product-lunch", "You order lunch");
+        answers.put("order-show", "this is your order");
+        answers.put("product-pizza-cancel", "pizza cancelled");
+        answers.put("product-lunch-cancel", "lunch cancelled");
         return answers;
     }
 }

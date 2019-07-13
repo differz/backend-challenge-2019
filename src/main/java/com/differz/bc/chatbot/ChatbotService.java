@@ -30,7 +30,7 @@ public class ChatbotService {
         String message = event.getMessage();
 
         if (!isOwnMessage(userId) && isMessageForBot(message)) {
-            String answer = chatbotAnswerer.getAnswer(message);
+            String answer = chatbotAnswerer.getAnswer(message, userId);
             MessageInputDto messageFromBot = new MessageInputDto();
             messageFromBot.setMessage(answer);
             messageFromBot.setRoomId(roomId);
